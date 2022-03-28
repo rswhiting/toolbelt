@@ -1,0 +1,59 @@
+# espanso configuration file
+
+# This is the default configuration file, change it as you like it
+# You can refer to the official documentation:
+# https://espanso.org/docs/
+
+# Matches are the substitution rules, when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":email"
+    replace: "rswhiting@gmail.com"
+  - trigger: ":shrug"
+    replace: "¯\\_(ツ)_/¯"
+  - trigger: ":flip"
+    replace: "(┛ಠ_ಠ)┛彡┻━┻"
+
+
+  # Dates
+  - trigger: ":time "
+    replace: "{{mytime}}"
+    vars:
+      - name: mytime
+        type: date
+        params:
+          format: "%H:%M "
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%Y-%m-%d"
+  - trigger: ":dt"
+    replace: "{{mytime}}"
+    vars:
+      - name: mytime
+        type: date
+        params:
+          format: "%Y-%m-%d %H:%M:%S %Z"
+
+  # Notes 
+  - trigger: ":newday"
+    replace: "## {{date}}\n- [ ] "
+    vars:
+      - name: "date"
+        type: date
+        params:
+          format: "%Y-%m-%d %a"
+
+  # Shell commands
+  - trigger: ":dadjoke"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: 'curl -H "Accept: text/plain" https://icanhazdadjoke.com/'
+          shell: wsl
